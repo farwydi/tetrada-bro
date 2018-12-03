@@ -2,6 +2,7 @@ import string
 
 var_map = {}
 
+
 # asd       0
 # 123       1
 # ~         3
@@ -41,15 +42,23 @@ def reg_parse(s):
     def add_arr(ar, of):
         ar_body = var_map[ar]
         dop = ''
-        for z in range(len(of) - 1, -1, -1):
-            dop += f"*({of[z]}+{ar_body[z]}"
-        dop = dop[2:]
-        for _ in range(len(of) - 1):
-            dop += ')'
 
-        lm = reg_parse(dop)
-        lm.insert(0, (10, '('))
-        lm.insert(-1, (11, ')'))
+        for k in range(len(of)):
+            dop += "+" + of[k]
+            for l in range(k + 1, len(of)):
+                dop += "*" + ar_body[l]
+        dop = dop[1:]
+
+        # for z in range(len(of) - 1):
+        #     if dop == '':
+        #         dop += f"({of[z]}*{ar_body[z + 1]}+{of[z + 1]})"
+        #         continue
+        #     dop = f"({dop}*{of[z]}*{ar_body[z + 1]}+{of[z + 1]})"
+        # dop = dop[1:]
+        # for _ in range(len(of) - 1):
+        #     dop += ')'
+
+        lm = [(10, '(')] + reg_parse(dop) + [(11, ')')]
         return lm
 
     def op_detect(op):

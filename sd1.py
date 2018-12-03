@@ -25,13 +25,19 @@ def show(trans_):
                    headers=['op', 'arg1', 'arg2', 'result']))
 
 
-s = "make(x, 10, 10);asd{1,h}^x[1,g+4]"
-s = "asd{1,h}^8"
-s = "make(x, 15, 20, 40);x[1,g+4,8]"
+# s = "make(x, 10, 10);asd{1,h}^x[1,g+4]"
+# s = "make(x, 10);x[5]"
+# s = "f{1,x}"
+# s = "x+2*y*(4+z)"
+# s = "~x^(5+3)"
+# s = "make(x, 15, 20, 40);x[1,g+4,8]"
 # 8+40*((g+4)+20*(1+15))
 # (i+10)*20+j
-s = "make(x, 10, 10, 10, 10);~f{1, j+5*(6*2+1)}+x[4, j+5*(6*2+1), 8, y]^5"
-s = input("ex: ")
+# s = "make(x, 10, 10, 10, 10);~f{1, j+5*(6*2+1)}+x[4, j+5*(6*2+1), 8, y]^5"
+s = "make(x, 10, 15);x[7,8]" # 7*15+8
+s = "make(x, 10, 15, 25);x[7,8,5]"
+# s = input("ex: ")
 print(s)
-print(tabulate(to_trans(poliz(get_4d(s))),
+x, _, _ = to_trans(poliz(get_4d(s)))
+print(tabulate(x[:-1],
                headers=['op', 'arg1', 'arg2', 'result']))
