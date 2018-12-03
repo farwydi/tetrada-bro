@@ -41,10 +41,10 @@ def reg_parse(s):
     def add_arr(ar, of):
         ar_body = var_map[ar]
         dop = ''
-        for z in range(len(of) - 1, 0, -1):
+        for z in range(len(of) - 1, -1, -1):
             dop += f"*({of[z]}+{ar_body[z]}"
         dop = dop[2:]
-        for _ in range(len(of) - 2):
+        for _ in range(len(of) - 1):
             dop += ')'
 
         lm = reg_parse(dop)
@@ -146,11 +146,6 @@ def reg_parse(s):
                     lexer_map.append((op_detect(l), l))
                 buf = ''
                 state = 0
-        elif state == 3:
-            # Поиск выхода после cell
-            if i == buf:
-                state = 0
-                buf = ''
         elif state == 4:
             # argv func
             if l is '}':
@@ -195,7 +190,7 @@ def reg_parse(s):
     elif state == 2:
         lexer_map.append((1, buf))
 
-    print([x[1] for x in lexer_map])
+    # print([x[1] for x in lexer_map])
     return lexer_map
     # normal_lex = poliz(lexer_map)
     # t_lex = to_trans(normal_lex)

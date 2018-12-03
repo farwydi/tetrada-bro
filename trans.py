@@ -11,7 +11,10 @@ def to_trans(nmap, r='return'):
         if lex[0] == 9:
             for a in lex[1][1]:
                 trans += to_trans(poliz(a), 'push')
+            trans.append((i, "push", len(lex[1][1]), "", ""))
             trans.append((i, lex[1][0], "", "", f"${var_i}"))
+            i += 1
+            var_i += 1
             stack.append((-1, f"${var_i}"))
             i += 1
             var_i += 1
