@@ -159,10 +159,15 @@ def reg_parse(s):
             # argv func
             if l is '}':
                 state = 0
-                argv.append(buf)
-                buf = ''
-                argv = [reg_parse(x) for x in argv]
-                lexer_map.append((9, (func, argv)))
+                if buf != '':
+                    argv.append(buf)
+                    buf = ''
+                if len(argv) > 0:
+                    argv = [reg_parse(x) for x in argv]
+                    lexer_map.append((9, (func, argv)))
+                    argv = []
+                else:
+                    lexer_map.append((9, (func, [])))
                 continue
 
             if l is ',':
