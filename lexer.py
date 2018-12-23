@@ -45,7 +45,7 @@ def reg_parse(s):
 
         for k in range(len(of)):
             dop += "+" + of[k]
-            for l in range(k + 1, len(of)):
+            for l in range(k, len(of) - 1):
                 dop += "*" + ar_body[l]
         dop = dop[1:]
 
